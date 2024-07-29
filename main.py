@@ -6,6 +6,11 @@ from utils.load_docs import load_documents
 from utils.split_docs import split_text
 from utils.create_and_retrieve import create_vector_db, retrieve_and_invoke
 import google.generativeai as genai
+from gtts import gTTS
+import threading
+import asyncio
+from pydub import AudioSegment
+from pydub.playback import play
 
 # Load environment variables
 load_dotenv()
@@ -43,6 +48,15 @@ def process_question(query_text):
                 # Update context history
                 st.session_state.context_history += f"\n\n---\n\nUser: {query_text}\nAssistant: {response}"
 
+def read_aloud_async(text):
+    def _play_audio():
+        tts = gTTS(text=text, lang='en')
+        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
+            tts.save(f"{temp_file.name}.mp3")
+            audio = AudioSegment.from_mp3(f"{temp_file.name}.mp3")
+            play(audio)
+
+    threading.Thread(target=_play_audio).start()
 
 def main():
     st.set_page_config(page_title="PDF Query Application", page_icon="📄", layout="wide")
@@ -76,17 +90,21 @@ def main():
             background-color: #f8d7da;
             color: #721c24;
             text-align: left;
-            margin-right: auto;
+            margin-right: auto.
         }
         .message-line {
-            border-top: 1px solid #ccc;
-            margin: 10px 0;
+            border-top: 1px solid #ccc.
+            margin: 10px 0.
         }
         .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
+            display: flex.
+            flex-direction: column.
+            align-items: center.
+            margin-top: 20px.
+        }
+        .read-aloud {
+            cursor: pointer.
+            margin-left: 10px.
         }
         </style>
         <div class="header">
@@ -116,6 +134,8 @@ def main():
                 st.markdown(f'<div class="chat-message user-message"><strong>User:</strong> {msg["content"]}</div>', unsafe_allow_html=True)
             elif msg["role"] == "assistant":
                 st.markdown(f'<div class="chat-message assistant-message"><strong>Assistant:</strong> {msg["content"]}</div>', unsafe_allow_html=True)
+                if st.button("🔊", key=f'read_aloud_{idx}', help="Click to read aloud"):
+                    read_aloud_async(msg["content"])
 
     # User input
     input_container = st.container()

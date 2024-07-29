@@ -8,6 +8,7 @@ This project is a Streamlit-based web application that allows users to upload PD
 - **Query PDFs**: Users can ask questions about the content of the uploaded PDFs.
 - **Conversational Interface**: The application maintains a conversational chat interface for user interactions.
 - **Context Awareness**: The application remembers the context of the conversation for more relevant responses.
+- **Read Aloud**: The application allows the users to read the response aloud.
 
 ## Project Structure
 
