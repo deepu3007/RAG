@@ -11,13 +11,13 @@ This project is a Streamlit-based web application that allows users to upload PD
 
 ## Project Structure
 
-RAG/
-├── utils/
-│ ├── load_docs.py
-│ ├── split_docs.py
-│ └── create_and_retrieve.py
-├── main.py
-├── requirements.txt
+RAG/\n
+├── utils/\n
+│ ├── load_docs.py\n
+│ ├── split_docs.py\n
+│ └── create_and_retrieve.py\n
+├── main.py\n
+├── requirements.txt\n
 └── README.md
 
 
