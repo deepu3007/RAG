@@ -65,7 +65,7 @@ Ensure you have the following installed:
 
 1. **Start the Streamlit application**:
     ```bash
-    streamlit run app.py
+    streamlit run main.py
     ```
 
 2. **Open your web browser** and navigate to `http://localhost:8501` to access the application.
