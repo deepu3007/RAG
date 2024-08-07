@@ -11,6 +11,10 @@ import threading
 import asyncio
 from pydub import AudioSegment
 from pydub.playback import play
+import pysqlite3
+import sys
+
+sys.modules['sqlite3'] = pysqlite3
 
 # Load environment variables
 load_dotenv()
